@@ -1,24 +1,28 @@
 import { useEffect, useState } from 'react'
-import productApi from './api/productApi'
+import productApi from './api/postsApi'
+import ListUser from './Users/ListUser'
 
 function App() {
-  const [productList, setProductList] = useState([])
+  const [postList, setPostList] = useState([])
   
   useEffect(() => {
     const getproductList = async () => {
       try {     
-        const respone = await productApi.get(1)
-        console.log(respone)        
+        const respone = await productApi.getAll()
+        //console.log(respone)   
+        setPostList(respone.data)
       } catch (error) {
         console.log("error: ", error)
       }
     }
 
+    getproductList()
+
   }, [])
 
   return (
     <div className="App">
-      
+      <ListUser />
     </div>
   );
 }
